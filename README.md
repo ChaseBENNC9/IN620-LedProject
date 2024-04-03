@@ -8,6 +8,7 @@ Simple Game. Using an 8x8 matrix the player is at the bottom of the screen and c
 - [x] Score Points
 - [x] Display Score
 - [x] Lives
-- [ ] Display Lives
-- [ ] Delay or Command to start Game
+- [x] Display Lives
+- [x] Press Button to start game
+- [x] Game Over
 - [ ] Sound
