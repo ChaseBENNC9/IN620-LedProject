@@ -110,11 +110,13 @@ unsigned long moveInterval = 1500;  // Interval between each movement (2 seconds
 
 
 
+int dropInterval = 350;  // Interval between drops in milliseconds
 
 
 void GameOver() {
   Death();
   lc.clearDisplay(0);
+  dropInterval = 350;
   playerPos = 3;
   lc.setLed(0, playerPos, 0, HIGH);
   gameStarted = false;
@@ -125,11 +127,11 @@ void GameOver() {
 
 
 unsigned long lastDropTime = 0;
-unsigned long dropInterval = 350;  // Interval between drops in milliseconds
 
 int prev = 0;
 void loop() {
   if (gameStarted) {
+
     unsigned long currentTime = millis();
 
     if (currentTime - lastDropTime >= dropInterval) {
@@ -166,6 +168,8 @@ void drop(int col, int row) {
     selectedCol = random(8);
     if (col == playerPos) {
       score++;
+      dropInterval -= 5;
+
       Score();
     }
 
