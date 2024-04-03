@@ -27,7 +27,7 @@ int score = 0; //Current Score
 int lives = 3; //Starting Lives
 int currentRow = 7; //The Current Row of the falling brick
 int selectedCol = 0; //The Selected Column that the falling brick will fall from
-bool gameStart = false;
+bool gameStarted = false;
 //Debounce Delay for button press
 unsigned long lastDebounceTime = 0;
 unsigned long debounceDelay = 50;
@@ -66,6 +66,12 @@ selectedCol = random(8);
 }
 
 void moveRight() {
+    if (!gameStarted)
+  {
+    gameStarted = true;
+  }
+  else
+  {
   lc.setLed(0, playerPos, 0, LOW);
 
   if (playerPos < 7 && millis() - lastDebounceTime > debounceDelay) {
@@ -76,9 +82,17 @@ void moveRight() {
     lastDebounceTime = millis();
   }
   lc.setLed(0, playerPos, 0, HIGH);
+  }
+
 }
 
 void moveLeft() {
+  if (!gameStarted)
+  {
+    gameStarted = true;
+  }
+  else
+  {
   lc.setLed(0, playerPos, 0, LOW);
   if (playerPos > 0 && millis() - lastDebounceTime > debounceDelay) {
     playerPos--;
@@ -88,6 +102,8 @@ void moveLeft() {
     lastDebounceTime = millis();
   }
   lc.setLed(0, playerPos, 0, HIGH);
+  }
+
 }
 
 
@@ -103,6 +119,7 @@ unsigned long moveInterval = 1500;  // Interval between each movement (2 seconds
 void GameOver() {
   lc.clearDisplay(0);
   lc.setLed(0, playerPos, 0, HIGH);
+  gameStarted = false;
   lives = 3;
   score = 0;
 }
@@ -113,7 +130,8 @@ unsigned long lastDropTime = 0;
 unsigned long dropInterval = 350; // Interval between drops in milliseconds
 int prev = 0;
 void loop() {
-  
+  if(gameStarted)
+  {
   unsigned long currentTime = millis();
 
   if (currentTime - lastDropTime >= dropInterval) {
@@ -130,8 +148,10 @@ void loop() {
   sevseg.setNumberF(livescore,1);
 
 
-  // Display lives on the rightmost digit with decimal place
   }
+
+  }
+
     sevseg.refreshDisplay(); // Must run repeatedly
 
 }
