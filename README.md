@@ -12,4 +12,4 @@ Simple Game. Using an 8x8 matrix the player is at the bottom of the screen and c
 - [x] Press Button to start game
 - [x] Game Over
 - [ ] Increase Difficulty over time
-- [ ] Sound
+- [x] Sound
